@@ -88,10 +88,9 @@ export default class RadioGroupOptionEditor extends React.PureComponent<IFieldOp
     }
 
     private addOption() {
-        //动态添加option
         let field = assign({}, this.props.field);
         let new_option = {
-            id: this.addOptionId++,
+            id: (this.addOptionId++).toString(),
             label: "选项"+this.addOptionId,
             type: "ABCDEFG"
         };

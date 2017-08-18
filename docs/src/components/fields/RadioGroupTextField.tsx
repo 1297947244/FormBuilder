@@ -32,7 +32,8 @@ export class RadioGroupTextField extends React.PureComponent<IFieldInputProps & 
                     <Col componentClass={ControlLabel} md={5}>{label}</Col>
                     <Col md={7}>
                         {fields.map((item)=>{
-                            return <Radio name="gender" key={item.id}>{item.label}</Radio>
+                            //TODO: (xiongchao) radio name is wrong
+                            return <Radio name={item.type} key={item.id}>{item.label}</Radio>
                         })}
                     </Col>
                 </FormGroup>
