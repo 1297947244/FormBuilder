@@ -12,20 +12,10 @@ export class RadioGroupTextField extends React.PureComponent<IFieldInputProps & 
 
     constructor(props: IFieldInputProps & IFieldBuilderProps) {
         super(props);
-        this.onTextFieldChange = this.onTextFieldChange.bind(this);
-        this.validate = this.validate.bind(this);
-    }
-
-    public componentDidMount() {
-        const error = this.validate(this.props.value);
-        if (this.props.onValueChange) {
-            this.props.onValueChange(this.props.field, this.props.value, { error });
-        }
     }
 
     public render() {
         const { label, fields } = this.props.field;
-        const { required } = this.props.field.options ? this.props.field.options : null;
         return (
             <div>
                 <FormGroup className='clearfix'>
@@ -46,21 +36,6 @@ export class RadioGroupTextField extends React.PureComponent<IFieldInputProps & 
         return null;
     }
 
-    private onTextFieldChange(event: any) {
-        const value = event.target.value;
-        const error = this.validate(value);
-        this.props.onValueChange(this.props.field, value, { error });
-    }
-
-    private validate(value: string): string {
-        if (this.props.field.options && this.props.field.options.required) {
-            if (value.trim() === '') {
-                return 'required';
-            }
-        }
-
-        return null;
-    }
 }
 
 export const RadioGroupTextBuilder = createFieldBuilderWrapper()(RadioGroupTextField);
