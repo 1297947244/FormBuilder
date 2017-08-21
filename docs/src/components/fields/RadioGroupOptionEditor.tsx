@@ -16,14 +16,17 @@ export default class RadioGroupOptionEditor extends React.PureComponent<IFieldOp
 
         this.onLabelChange = this.onLabelChange.bind(this);
         this.onRequiredChange = this.onRequiredChange.bind(this);
+        this.onAddOthersChange = this.onAddOthersChange.bind(this);
         this.onLabelValueChange = this.onLabelValueChange.bind(this);
+        this.onOthersValueChange = this.onOthersValueChange.bind(this);
+        this.onOthersLabelChange = this.onOthersLabelChange.bind(this);
         this.addOption = this.addOption.bind(this);
         this.addOptionId = 0;
     }
 
     render() {
         const { label, fields } = this.props.field;
-        const { required, unique } = this.props.field.options;
+        const { required, unique, others } = this.props.field.options;
         return (
             <div>
                 <div>
@@ -46,6 +49,25 @@ export default class RadioGroupOptionEditor extends React.PureComponent<IFieldOp
                         </div>
                     })}
                     <a href="javascript:void(0)" onClick={this.addOption}>添加单个选项</a>
+                </div>
+                <div >
+                <Checkbox checked={others.checked} onChange={this.onAddOthersChange}>添加'其他'选项</Checkbox>
+                {others.checked &&
+                    <div>
+                        <span>标题：</span>
+                        <FormControl
+                            type='text'
+                            value={others.label}
+                            onChange={this.onOthersLabelChange}
+                        />
+                        <span>提示文字：</span>
+                        <FormControl
+                            type='text'
+                            value={others.value}
+                            onChange={this.onOthersValueChange}
+                        />
+                    </div>
+                }
                 </div>
                 <div>
                     <span>Setting</span>
@@ -95,6 +117,24 @@ export default class RadioGroupOptionEditor extends React.PureComponent<IFieldOp
             type: "ABCDEFG"
         };
         field.fields.push(new_option);
+        this.props.onChange(field);
+    }
+
+    private onAddOthersChange() {
+        let field = assign({}, this.props.field);
+        field.options.others.checked = !this.props.field.options.others.checked;
+        this.props.onChange(field);
+    }
+
+    private onOthersLabelChange(event: any) {
+        let field = assign({}, this.props.field);
+        field.options.others.label = event.target.value;
+        this.props.onChange(field);
+    }
+
+    private onOthersValueChange(event: any) {
+        let field = assign({}, this.props.field);
+        field.options.others.value = event.target.value;
         this.props.onChange(field);
     }
 

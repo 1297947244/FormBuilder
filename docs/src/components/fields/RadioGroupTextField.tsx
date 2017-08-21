@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControl, FormGroup, ControlLabel, Col, ButtonToolbar, Radio } from 'react-bootstrap';
+import { FormControl, FormGroup, ControlLabel, Col, ButtonToolbar, Radio, Checkbox } from 'react-bootstrap';
 import { IField, IFieldBuilderProps, IFieldInputProps, IFieldInputInjector, createFieldBuilderWrapper } from 'react-dynamic-formbuilder';
 
 interface IState {
@@ -16,6 +16,7 @@ export class RadioGroupTextField extends React.PureComponent<IFieldInputProps & 
 
     public render() {
         const { label, fields } = this.props.field;
+        const { others } = this.props.field.options;
         return (
             <div>
                 <FormGroup className='clearfix'>
@@ -25,6 +26,15 @@ export class RadioGroupTextField extends React.PureComponent<IFieldInputProps & 
                             //TODO: (xiongchao) radio name is wrong
                             return <Radio name={item.type} key={item.id}>{item.label}</Radio>
                         })}
+                        {others.checked &&
+                            <div>
+                                <Checkbox>{others.label}</Checkbox>
+                                <FormControl
+                                    type='text'
+                                    value={others.value}
+                                />
+                            </div>
+                        }
                     </Col>
                 </FormGroup>
             </div>

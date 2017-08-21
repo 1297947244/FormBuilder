@@ -26,7 +26,12 @@ const Field: IField = {
         }
     ],
     options: {
-        required: true
+        required: true,
+        others: {
+            checked: false,
+            label: 'Others',
+            value: ''
+        }
     }
 };
 
